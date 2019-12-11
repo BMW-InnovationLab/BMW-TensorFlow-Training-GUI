@@ -1,0 +1,38 @@
+version: '2.3'
+
+services:
+
+  docker_sdk:
+    image: tf_docker_sdk
+    build:
+      context: ./docker_sdk_api
+      dockerfile: dockerfile
+      args:
+        http_proxy: 
+        https_proxy: 
+  training:
+    image: tf_training_api
+    build:
+      context: ./training_api
+      dockerfile: dockerfile
+      args:
+        http_proxy: 
+        https_proxy:
+
+  user_interface:
+    image: tf_training_ui
+    build:
+      context: ./gui
+      dockerfile: dockerfile
+      args:
+        http_proxy: 
+        https_proxy: 
+  
+  inference_api:
+    image: tf_inference_api_for_training_gui
+    build:
+      context: ./inference
+      dockerfile: docker/dockerfile
+      args:
+        http_proxy: 
+        https_proxy:
