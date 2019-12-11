@@ -1,0 +1,31 @@
+version: '2.3'
+
+services:
+
+  docker_sdk:
+    image: tf_docker_sdk
+    runtime: nvidia
+    network_mode: "host"
+    # ports:
+    #   - "2222:2222"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      #- <path_to_api_folder>:/api
+      - ./datasets:/datasets
+      - ./training_api/networks_weights:/weights
+      - ./checkpoints:/checkpoints
+
+
+  user_interface:
+    image: tf_training_ui
+    ports:
+      - "4200:80"
+  
+  inference_api:
+    image: tf_inference_api_for_training_gui
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./inference/models:/models
+      - ./inference/src/main:/main
+    ports:
+      - "4343:4343"

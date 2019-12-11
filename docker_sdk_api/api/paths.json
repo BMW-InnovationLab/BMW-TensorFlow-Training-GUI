@@ -1,0 +1,1 @@
+{"base_dir": "/home/djoe/hdd/Tensorflow_training_repo_docker_compose", "network_archs_basedir": "training_api/networks_weights", "api_folder": "training_api/api", "dataset_folder_on_host": "datasets", "checkpoints_folder_on_host": "checkpoints", "inference_api_models_folder": "inference/models", "image_name": "tf_training_api"}
