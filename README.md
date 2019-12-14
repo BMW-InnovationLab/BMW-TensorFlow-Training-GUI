@@ -1,7 +1,7 @@
 # Tensorflow Object Detection Training GUI for Linux
 
 This repository allows you to get started with training a State-of-the-art Deep Learning model with little to no configuration needed!  You provide your labeled dataset and you can start the training right away and monitor it with TensorBoard. 
-You can even test your model with our built-in Inference REST API.
+You can even test your model with our built-in Inference REST API. Training with TensorFlow has never been so easy.
 
 - This repository is based on [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection)
 - The tensorflow version used is in this repo is **1.13.1**
