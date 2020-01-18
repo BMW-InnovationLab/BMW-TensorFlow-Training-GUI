@@ -38,6 +38,7 @@ def labels_to_csv(images_path, labels_path, output_path, labels_type):
     if labels_type == "json":
         labels_df = json_to_csv(labels_path, images_path)
         labels_df.to_csv(output_path, index=None)
+        print('Successfully converted json to csv.')
 
     elif labels_type == "pascal":
         column_name, xml_list = xml_to_csv(labels_path)
@@ -46,10 +47,9 @@ def labels_to_csv(images_path, labels_path, output_path, labels_type):
             writer.writeheader()
             for row in xml_list:
                 writer.writerow(row)
-
+        print('Successfully converted pascal to csv.')
 
      
-    print('Successfully converted xml to csv.')
 
 
 
