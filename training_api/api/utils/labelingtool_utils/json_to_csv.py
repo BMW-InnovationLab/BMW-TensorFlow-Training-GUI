@@ -46,7 +46,7 @@ def json_to_csv(path, images_path):
 
 
             for image in images:
-                if image.startswith(prefix_name):
+                if image.split('.')[0] == prefix_name:
                     image_found = True
                     image_name = image
                     width, height = Image.open(images_path+'/'+image).size
