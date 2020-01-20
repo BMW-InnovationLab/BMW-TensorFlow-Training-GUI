@@ -103,7 +103,7 @@ async def create_tfrecord_endpoint(labelsInfo: LabelsInfo):
 
     delete_images_with_no_labels(IMAGES_PATH, LABELS_PATH)
     labels_to_csv(IMAGES_PATH, LABELS_PATH, LABELS_CSV_PATH,  labelsInfo.labels_type)
-    split_dataset(LABELS_CSV_PATH, labelsInfo.split_percentage)
+    split_dataset(IMAGES_PATH, LABELS_CSV_PATH, labelsInfo.split_percentage)
     convert_to_tf_record(None, '/training_dir/data/train.csv', '/training_dir/data/train.record', IMAGES_PATH)
     convert_to_tf_record(None, '/training_dir/data/test.csv', '/training_dir/data/test.record', IMAGES_PATH)
     return "Success"
