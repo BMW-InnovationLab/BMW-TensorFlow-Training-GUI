@@ -70,7 +70,13 @@ def train_and_export(training_steps, evaluation_steps, model_name, network_arch)
     
 
     labels = get_labels_from_json_file("/dataset/objectclasses.json")
-    config = {"predictions":15, "confidence":10, "inference_engine_name": "tensorflow_detection", "framework": "tensorflow", "type": "detection", "network": "frc", "number_of_classes": len(labels)} 
+    
+    if (network_arch.startswith('ssd')):
+        architecture = 'ssd'
+    else:
+        architecture = 'fasterrcnn'
+    
+    config = {"predictions":15, "confidence":10, "inference_engine_name": "tensorflow_detection", "framework": "tensorflow", "type": "detection", "network": architecture, "number_of_classes": len(labels)} 
     config_json_path = os.path.join(model_export_destination, 'config.json')
     
     with open(config_json_path, 'w') as f: 
