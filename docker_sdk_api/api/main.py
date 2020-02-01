@@ -138,7 +138,8 @@ async def get_tensorboard_port(containerInfo: ContainerInfo):
     for container in client.containers.list():
         if(container.name == containerInfo.name):
             tensorboard_port = int(container.ports['6006/tcp'][0]['HostPort'])
-    return tensorboard_port
+            api_port = int(container.ports['5252/tcp'][0]['HostPort'])
+    return {'tensorboardPort': tensorboard_port, 'apiPort':api_port}
 
 """
 Stops a specific job
