@@ -53,7 +53,7 @@
     <mat-error *ngIf="FieldControl.get('tensorBoard').hasError('isNotInteger')"> This must be an integer</mat-error>
     <mat-error *ngIf="FieldControl.get('tensorBoard').hasError('alreadyAllocatedPort')">Port already allocated</mat-error>
     <mat-error *ngIf="FieldControl.get('tensorBoard').hasError('duplicatePort')">Can't be same as api port</mat-error>
-    <mat-error *ngIf="FieldControl.get('tensorBoard').hasError('isNotInRange')">Port out of range (range : 1000 -> 65535)</mat-error>
+    <mat-error *ngIf="FieldControl.get('tensorBoard').hasError('isNotInRange')">Port out of range (range : 1025 -> 65535)</mat-error>
     <mat-icon class="help_message_button" matTooltip="Port That Will be Used for Tensorboard (cannot be the
 same as API Port)">help</mat-icon>
   </mat-form-field>
@@ -63,7 +63,7 @@ same as API Port)">help</mat-icon>
       <mat-error *ngIf="FieldControl.get('APIPort').hasError('isNotInteger')"> This must be an integer</mat-error>
       <mat-error *ngIf="FieldControl.get('APIPort').hasError('alreadyAllocatedPort')">Port already allocated </mat-error>
       <mat-error *ngIf="FieldControl.get('APIPort').hasError('duplicatePort')">Can't be same as tensorboard port</mat-error>
-      <mat-error *ngIf="FieldControl.get('APIPort').hasError('isNotInRange')">Port out of range (range : 1000 -> 65535)</mat-error>
+      <mat-error *ngIf="FieldControl.get('APIPort').hasError('isNotInRange')">Port out of range (range : 1025 -> 65535)</mat-error>
 
       <mat-icon class="help_message_button" matTooltip="Port that will be used for the training API (cannot be the
 same as Tensorboard Port)">help</mat-icon>

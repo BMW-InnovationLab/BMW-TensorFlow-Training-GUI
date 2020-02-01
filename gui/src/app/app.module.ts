@@ -23,6 +23,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {DialogComponent} from './Components/template/training-ui-mockup/dialog/dialog.component';
 import {LogsComponent} from './Components/template/logs/logs.component';
 // tslint:disable-next-line:max-line-length
@@ -67,7 +68,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSlideToggleModule,
     MatCheckboxModule,
     FlexModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressBarModule
 
   ],
   providers: [],

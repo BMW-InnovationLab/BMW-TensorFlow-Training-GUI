@@ -25,7 +25,7 @@
     </button>
   </div>
 
-  <mat-spinner style="margin-left: auto; margin-right: auto; margin-top: 5vh" *ngIf="showSpinner"></mat-spinner>
+  <mat-progress-bar style="margin-left: auto; margin-right: auto;" *ngIf="showSpinner" mode='indeterminate'></mat-progress-bar>
 
   <cdk-virtual-scroll-viewport itemSize=(jobsNumber) class="jobsViewPort">
     <mat-list *cdkVirtualFor="let job of jobs">

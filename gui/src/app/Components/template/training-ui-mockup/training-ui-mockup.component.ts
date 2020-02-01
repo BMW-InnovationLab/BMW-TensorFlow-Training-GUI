@@ -9,6 +9,8 @@ import {DialogComponent} from './dialog/dialog.component';
 import {LogsComponent} from '../logs/logs.component';
 import {DataGetter} from '../../../Services/data-getter.service';
 import {Router} from '@angular/router';
+import {IPorts} from "../../../Interfaces/Ports";
+
 
 @Component({
   selector: 'app-training-ui-mockup',
@@ -108,8 +110,14 @@ export class TrainingUIMockupComponent implements OnInit, OnDestroy {
     const job: Ijob = {
       name: jobName
     };
-    this.JobService.monitorJob(job).subscribe((jobPortResponse: number) => {
-      window.open(environment.url + jobPortResponse, '_blank');
+    this.JobService.monitorJob(job).subscribe((jobPortResponse: IPorts) => {
+      this.showSpinner = true;
+      this.JobService.refreshMonitor(jobPortResponse.apiPort).subscribe( (resp: any) => {
+        setTimeout(() => {
+          this.showSpinner = false;
+          window.open(environment.url + jobPortResponse.tensorboardPort, '_blank');
+        }, 1500);
+      });
     });
   }
 
