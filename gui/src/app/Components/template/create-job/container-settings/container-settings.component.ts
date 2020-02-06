@@ -75,7 +75,7 @@ export class ContainerSettingsComponent implements OnInit {
   }
 
   checkIfInRange(value: AbstractControl): { [Key: string]: boolean } | null {
-    if (Number(value.value) > 1000 && Number(value.value) <= 65535 ) {
+    if (Number(value.value) > 1024 && Number(value.value) <= 65535 ) {
       return null;
     }
     return {isNotInRange: true};
@@ -118,7 +118,7 @@ export class ContainerSettingsComponent implements OnInit {
   }
 
   generateRandomValue() {
-    const min = 1000;
+    const min = 1025;
     const max = 10000;
     return (Math.floor(Math.random() * (max - min)) + min).toString();
   }

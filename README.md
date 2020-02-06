@@ -11,8 +11,8 @@ You can even test your model with our built-in Inference REST API. Training with
 - The pre-trained weights that you can use out of the box are based on the COCO dataset. 
 
 
-	
-	
+
+​	
 
 ![](./documentation_images/0.gif)
 
@@ -100,12 +100,12 @@ You can even test your model with our built-in Inference REST API. Training with
 
 
   !["environment.ts"](./documentation_images/env.gif)
-  
+
 	 _environment.ts_
 
 
   ![](./documentation_images/envprod.gif)
-  
+
 	 _environment.prod.ts_
 
 - If you are behind a proxy, change the `args` `http_proxy` and `https_proxy`in `build.yml` to match the address of your proxy. (**you can find build.yml in the repo's root directory**)
@@ -297,6 +297,8 @@ Our [tensorboard document](./training_api/docs/Tensorboard.md) helps you find yo
 - In general settings, choose carefully the container name because choosing a name used by another container will cause errors.
 
   ![](./documentation_images/nameerror.gif)
+
+- When you leave tensorboard open for a long time, it might freeze. When encountered with such issue simply closing tensorboard tab in the browser and reopening it will solve the problem. 
 
 
 

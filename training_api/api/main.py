@@ -14,7 +14,7 @@ from tfrecord_module.labels_to_csv import labels_to_csv
 from tfrecord_module.split_dataset import split_dataset
 from tfrecord_module.generate_tfrecord import convert_to_tf_record
 from config_file_module.create_config_file import create_config_file
-from utils.framework_utils.start_tensorboard import start_tensorboard
+from utils.framework_utils.tensorboard_utils import start_tensorboard, stop_tensorboard
 from utils.labelingtool_utils.directories_creator import create_required_directories
 from utils.framework_utils.background_train_export import train_and_export
 from utils.labelingtool_utils.object_classes_handler import get_labels_from_json_file
@@ -205,3 +205,9 @@ async def get_default_hyperparameters(dhp: DefaultHyperParams):
         default_params["height"] = 640
     
     return default_params
+
+
+@app.get('/refresh_tensorboard')
+async def refresh_tensorboard():
+    stop_tensorboard()
+    start_tensorboard()
