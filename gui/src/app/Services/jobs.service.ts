@@ -4,6 +4,7 @@ import {Config} from 'codelyzer';
 import {Ijob} from '../Interfaces/ijob';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject} from 'rxjs';
+import { IPorts } from '../Interfaces/Ports';
 
 
 @Injectable({
@@ -46,7 +47,11 @@ export class JobsService {
   }
 
   monitorJob(jobName: Ijob) {
-    return this.http.post<number>(this.serviceUrl + this.baseEndPoint + '/monitor_job', JSON.stringify(jobName));
+    return this.http.post<any>(this.serviceUrl + this.baseEndPoint + '/monitor_job', JSON.stringify(jobName));
+  }
+
+  refreshMonitor(port: number) {
+    return this.http.get<IPorts>(this.serviceUrl +  port + '/refresh_tensorboard');
   }
 
 }
