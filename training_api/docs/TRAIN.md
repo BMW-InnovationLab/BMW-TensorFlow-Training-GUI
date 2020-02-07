@@ -21,7 +21,7 @@ To do so, you will have to do the following
 To build the docker you will need to run the following command:
 
 ```sh
-sudo docker build --build-arg http_proxy='http://qqcomi1:comxr0fl@192.109.190.88:8080' --build-arg https_proxy='http://qqcomi1:comxr0fl@192.109.190.88:8080' -t tensorflow_training_v4 .
+sudo docker build -t tensorflow_training_v4 .
 ```
 
 Or, if you want you can load a saved images from /nfs/data/Joe_Sleiman/saved_images
