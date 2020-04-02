@@ -4,6 +4,7 @@ import time
 import json
 import os
 import uvicorn
+import re
 
 from fastapi import FastAPI, Query, HTTPException, File, Form, BackgroundTasks
 from pydantic import BaseModel, Schema
@@ -18,6 +19,7 @@ from checkpoint_validator import validate_checkpionts_folder
 from dataset_validator import validate_dataset
 from dataset_validator import dataset_label_types
 from port_scanner import used_ports
+from alias_provider_sql import add_alias, delete_alias, get_name_from_alias, get_alias_from_name
 
 
 client = docker.from_env()
@@ -115,7 +117,7 @@ async def get_containers():
     containers = []
     for container in client.containers.list():
         if(container.image.attrs['RepoTags'][0] == paths['image_name']+":latest"):
-            containers.append(container.name)
+            containers.append(get_alias_from_name(container.name))
     return containers
 
 
@@ -136,7 +138,7 @@ str
 @app.post('/monitor_job')
 async def get_tensorboard_port(containerInfo: ContainerInfo):
     for container in client.containers.list():
-        if(container.name == containerInfo.name):
+        if(container.name == get_name_from_alias(containerInfo.name)):
             tensorboard_port = int(container.ports['6006/tcp'][0]['HostPort'])
             api_port = int(container.ports['5252/tcp'][0]['HostPort'])
     return {'tensorboardPort': tensorboard_port, 'apiPort':api_port}
@@ -157,8 +159,9 @@ str
 @app.post('/stop_job')
 async def stop_container(containerInfo: ContainerInfo):
     for container in client.containers.list():
-        if(container.name == containerInfo.name):
+        if(container.name == get_name_from_alias(containerInfo.name)):
             container.kill()
+            delete_alias(containerInfo.name)
 
     return "Job Killed"
 
@@ -182,7 +185,7 @@ async def get_logs(containerInfo: ContainerInfo):
     logs = ""
 
     for container in client.containers.list():
-        if(container.name == containerInfo.name):
+        if(container.name == get_name_from_alias(containerInfo.name)):
             logs = container.logs()
     
     log_list = logs.splitlines()
@@ -213,7 +216,11 @@ async def start_training_api(containerSettings: ContainerSettings):
     volumes={os.path.join(paths['dataset_folder_on_host'], containerSettings.dataset_path): {'bind': '/dataset', 'mode': 'rw'}, API_FOLDER: {'bind': '/api', 'mode': 'rw'}, paths['checkpoints_folder_on_host'] : {'bind': '/checkpoints', 'mode': 'rw'}, paths['inference_api_models_folder']: {'bind': '/inference_models', 'mode':'rw'}}
     ports = {'6006/tcp': str(containerSettings.tensorboard_port), '5252/tcp': str(containerSettings.api_port)}
     gpus_string =  "NVIDIA_VISIBLE_DEVICES="+str(containerSettings.gpus)
-    container = client.containers.run(paths['image_name'], remove=True, runtime='nvidia', environment=[gpus_string], name=containerSettings.name ,ports=ports, volumes=volumes, tty=True, stdin_open=True, detach=True) 
+    container = client.containers.run(paths['image_name'], remove=True, runtime='nvidia', environment=[gpus_string], ports=ports, volumes=volumes, tty=True, stdin_open=True, detach=True) 
+    slugified_name = re.sub('[^A-z0-9 -]', '', containerSettings.name).lower().replace(" ", "_")
+    new_name = "GPU_"+str(containerSettings.gpus)+"_"+slugified_name
+    container.rename(new_name)
+    add_alias(new_name, containerSettings.name)    
     time.sleep(8)
     return "Success"
 
@@ -329,7 +336,7 @@ async def get_finished_jobs():
     running_containers = []
     for container in client.containers.list():
         if(container.image.attrs['RepoTags'][0] == paths['image_name']+":latest"):
-            running_containers.append(container.name)
+            running_containers.append(get_alias_from_name(container.name))
     
     finished_jobs = list(set(running_containers).intersection(set(downloadable_jobs)))
     return finished_jobs
