@@ -3,7 +3,8 @@
   <mat-form-field class ="bigFormField" *ngIf="true"  >
       <input matInput placeholder="Container Name" formControlName="containerName" required>
       <mat-error *ngIf="FieldControl.get('containerName').hasError('required')"> Please enter a Value</mat-error>
-      <mat-error *ngIf="FieldControl.get('containerName').hasError('alreadyExists')"> Container name already taken</mat-error>
+      <mat-error *ngIf="FieldControl.get('containerName').hasError('alreadyExists')"> Name already taken</mat-error>
+      <mat-error *ngIf="FieldControl.get('containerName').hasError('containsSlashes')">Name cannot contain slashes</mat-error>
     <mat-icon class="help_message_button" matTooltip="Name that will identify the model. A docker container with that name will be created">help</mat-icon>
   </mat-form-field>
 
