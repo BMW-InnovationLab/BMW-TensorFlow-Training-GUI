@@ -57,7 +57,7 @@ export class ContainerSettingsComponent implements OnInit {
       tensorBoard: new FormControl(Number(this.functionToGetRandomNumber(this.usedPorts)), [Validators.required, this.checkIfNumberValidator, this.checkIfInRange , this.checkIfUsedPort.bind(this), this.checkIfSamePort.bind(this)]),
       // tslint:disable-next-line:max-line-length
       APIPort: new FormControl(Number(this.functionToGetRandomNumber(this.usedPorts)), [Validators.required, this.checkIfNumberValidator, this.checkIfInRange , this.checkIfUsedPort.bind(this), this.checkIfSamePort.bind(this)]),
-      containerName: new FormControl('', [Validators.required, this.checkIfNameExists.bind(this)]),
+      containerName: new FormControl('', [Validators.required, this.checkIfNameExists.bind(this), this.checkIfContainsSlashes]),
       networkArchitecture: new FormControl('', [Validators.required]),
       gPUs: new FormControl('', [Validators.required]),
       checkPoints: new FormControl('', [Validators.required])
@@ -66,6 +66,17 @@ export class ContainerSettingsComponent implements OnInit {
     this.getUsedPorts();
 
   }
+
+  checkIfContainsSlashes(value: AbstractControl): {[Key: string]: boolean} | null {
+    
+    if(String(value.value).includes("/") || String(value.value).includes("\\")) 
+    {
+      return {containsSlashes: true}
+    }
+
+    return null
+
+}
 
   checkIfNumberValidator(value: AbstractControl): { [Key: string]: boolean } | null {
     if (String(value.value).match(/^[0-9]+$/)) {

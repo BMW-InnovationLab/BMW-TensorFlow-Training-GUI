@@ -9,6 +9,7 @@ You can even test your model with our built-in Inference REST API. Training with
 - The built-in inference REST API works on CPU and doesn't require any GPU usage.
 - All of the supported networks in this project are taken from the [tensorflow model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
 - The pre-trained weights that you can use out of the box are based on the COCO dataset. 
+- The app was tested with Google Chrome and it is recommended to use Chrome when training.
 
 
 
