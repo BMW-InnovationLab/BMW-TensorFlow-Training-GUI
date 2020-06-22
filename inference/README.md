@@ -11,7 +11,7 @@ sudo docker build -t tensorflow_api -f docker/dockerfile .
 ### Behind a proxy
 
 ```sh
-sudo docker build --build-arg http_proxy='http://qqcomi1:comxr0fl@192.109.190.88:8080' --build-arg https_proxy='http://qqcomi1:comxr0fl@192.109.190.88:8080' -t tensorflow_api -f ./docker/dockerfile .
+sudo docker build --build-arg http_proxy='' --build-arg https_proxy='' -t tensorflow_api -f ./docker/dockerfile .
 ```
 
 ## Run the docker container
