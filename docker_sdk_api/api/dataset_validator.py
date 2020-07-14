@@ -35,6 +35,7 @@ def validate_dataset(dataset_folder, labels_type):
     if valid == True:
         images = os.listdir(dataset_folder+'/images')
         for image in images:
+            image = image.lower()
             if not (image.endswith('.png') or image.endswith('.jpg') or image.endswith('.jpeg')):
                 valid = False
                 break
@@ -52,7 +53,7 @@ def validate_dataset(dataset_folder, labels_type):
 
         for label in labels:
 
-            if not (label.endswith(extension)):
+            if not (label.lower().endswith(extension)):
                 valid = False
                 break      
     
