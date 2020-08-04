@@ -3,6 +3,8 @@
 This repository allows you to get started with training a State-of-the-art Deep Learning model with little to no configuration needed!  You provide your labeled dataset and you can start the training right away and monitor it with TensorBoard. 
 You can even test your model with our built-in Inference REST API. Training with TensorFlow has never been so easy.
 
+You can also use our BMW-Labeltool-lite to label your dataset. The images and labels can be used directly for training. https://github.com/BMW-InnovationLab/BMW-Labeltool-Lite.git
+
 - This repository is based on [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection)
 - The tensorflow version used is in this repo is **1.13.1**
 - We plan on supporting  **TF 2** as soon as the [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) officially supports it.
