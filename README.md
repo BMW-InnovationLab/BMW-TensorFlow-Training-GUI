@@ -322,3 +322,5 @@ Joe Abou Nakoul, inmind.ai, Beirut, Lebanon
 Michael Ghosn, inmind.ai, Beirut, Lebanon
 
 Elie Haddad, Beirut, Lebanon
+
+Jimmy Tekli, BMW Innovation Lab, Munich, Germany
