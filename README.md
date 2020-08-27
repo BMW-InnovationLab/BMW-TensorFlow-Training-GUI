@@ -140,7 +140,7 @@ The following is an example of how a dataset should be structured. Please put al
 
 
 
-- If you want to label your images, you can use our [BMW LabelTool Lite](https://https://github.com/BMW-InnovationLab/BMW-Labeltool-Lite) which is a free, open-source image annotation tool.
+- If you want to label your images, you can use our [BMW-LabelTool-Lite](https://github.com/BMW-InnovationLab/BMW-Labeltool-Lite) which is a free, open-source image annotation tool.
   This tool supports our JSON label format
 
 #### Objectclasses.json file example
