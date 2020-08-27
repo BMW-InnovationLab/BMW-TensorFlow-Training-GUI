@@ -30,7 +30,7 @@ from object_detection import model_hparams
 from object_detection import model_lib
 
 
-
+tf.logging.set_verbosity(tf.logging.INFO)
 
 """
 Logic to train a model
