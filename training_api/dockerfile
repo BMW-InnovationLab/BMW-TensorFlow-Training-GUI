@@ -59,7 +59,7 @@ WORKDIR /
 
 RUN pip3 install --upgrade pip
 
-RUN pip3 install Cython jupyter matplotlib pillow lxml pandas contextlib2 cmake 
+RUN pip3 install Cython jupyter matplotlib pillow lxml pandas contextlib2 cmake numpy==1.17.5
 RUN pip3 install tensorflow-gpu==1.13.1
 
 #RUN git clone https://github.com/cocodataset/cocoapi.git 
