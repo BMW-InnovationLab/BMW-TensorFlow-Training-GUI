@@ -140,8 +140,8 @@ The following is an example of how a dataset should be structured. Please put al
 
 
 
-- If you want to label your images, you can use [LabelImg](https://github.com/tzutalin/labelImg) which is a free, open-source image annotation tool.
-  This tool supports XML PASCAL label format
+- If you want to label your images, you can use our [BMW LabelTool Lite](https://https://github.com/BMW-InnovationLab/BMW-Labeltool-Lite) which is a free, open-source image annotation tool.
+  This tool supports our JSON label format
 
 #### Objectclasses.json file example
 
