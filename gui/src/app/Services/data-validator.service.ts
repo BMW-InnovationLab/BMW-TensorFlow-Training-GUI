@@ -114,7 +114,7 @@ export class DataValidatorService {
       };
     }
     if (this.checkPointsAvailable) {
-      this.config.checkpoint_path = this.generalSettings.checkPointPath;
+      this.config.checkpoint_path = this.generalSettings.checkPoints;
     }
     return this.http.post<HttpResponse<Config>>(this.serviceUrl + this.APIPort + '/config', this.config);
   }
