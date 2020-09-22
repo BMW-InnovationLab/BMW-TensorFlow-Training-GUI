@@ -4,6 +4,6 @@ export interface IgeneralSettings {
   gPUs: string[];
   tensorBoard: number;
   APIPort: number;
-  checkPointPath ?: string;
+  checkPoints ?: string;
 
 }
