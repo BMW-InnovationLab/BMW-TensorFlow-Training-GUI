@@ -31,7 +31,7 @@ You can also use our BMW-Labeltool-lite to label your dataset. The images and la
 - NVIDIA Drivers (410.x or higher)
 - Docker CE latest stable release
 - NVIDIA Docker 2 
-- Docker-Compose
+- Docker-Compose (1.19.0 or higher)
 
 
 
