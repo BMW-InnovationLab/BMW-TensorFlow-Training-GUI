@@ -87,6 +87,8 @@ RUN apt-get update && apt-get install locales
 
 RUN pip3 install fastapi[all]
 
+RUN pip3 install pydantic==1.7
+
 # Set the locale (required for uvicorn)
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
   dpkg-reconfigure --frontend=noninteractive locales && \
