@@ -85,7 +85,7 @@ RUN export PYTHONPATH=$PYTHONPATH:/tensorflow/models/research:tensorflow/models/
 
 RUN apt-get update && apt-get install locales
 
-RUN pip3 install fastapi[all]
+RUN pip3 install fastapi[all]==0.63.0
 
 RUN pip3 install pydantic==1.7
 
