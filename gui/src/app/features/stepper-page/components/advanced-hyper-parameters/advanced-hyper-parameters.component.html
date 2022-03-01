@@ -1,0 +1,41 @@
+<form (ngSubmit)="submitForm()" [formGroup]="advancedHyperParametersForm" nz-form
+      nzLayout="vertical"
+      style="justify-content: space-between; display: flex; flex-wrap: wrap;">
+    <nz-form-item nzFlex="4" style="width: 100%; max-height: 200px; display: block;">
+    <textarea formControlName="configContent" nz-input style="height: 200px; overflow-y: auto; max-height: 200px;">
+
+    </textarea>
+    </nz-form-item>
+    <nz-form-item style="width: 100%; display: block;" nzFlex="1">
+        <nz-form-label nzFlex="1">Training Steps :</nz-form-label>
+        <nz-form-control [nzErrorTip]="TRSErrorTpl" nzFlex="1" nzHasFeedback>
+            <input formControlName="trainingSteps"
+                   nz-input
+                   nz-tooltip="training steps" nzTooltipPlacement="topRight" placeholder="Training Steps"/>
+            <ng-template #TRSErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please input a number!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('notInt')">
+                    Must be an int
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+<!--    <nz-form-item class="form-item-2" nzFlex="1">-->
+<!--        <nz-form-label nzFlex="1">Eval Steps :</nz-form-label>-->
+<!--        <nz-form-control [nzErrorTip]="ESErrorTpl" nzFlex="1" nzHasFeedback>-->
+<!--            <input formControlName="evalSteps"-->
+<!--                   nz-input-->
+<!--                   nz-tooltip="eval steps" nzTooltipPlacement="topRight" placeholder="Eval Steps"/>-->
+<!--            <ng-template #ESErrorTpl let-control>-->
+<!--                <ng-container *ngIf="control.hasError('required')">-->
+<!--                    Please input a number!-->
+<!--                </ng-container>-->
+<!--                <ng-container *ngIf="control.hasError('notInt')">-->
+<!--                    Must be an int-->
+<!--                </ng-container>-->
+<!--            </ng-template>-->
+<!--        </nz-form-control>-->
+<!--    </nz-form-item>-->
+</form>

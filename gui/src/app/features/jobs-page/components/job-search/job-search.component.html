@@ -1,0 +1,33 @@
+<div class="search-container">
+    <div nz-row nzAlign="top" class="search">
+        <nz-input-group [nzSuffix]="inputClearTpl"
+                        nz-col
+                        class="input-search"
+                        [nzCompact]="true">
+            <input type="text" nz-input
+                   [(ngModel)]="searchQuery"
+                   (ngModelChange)="search()"
+                   [nzBorderless]="true"
+                   placeholder="Search for jobs..."/>
+        </nz-input-group>
+        <ng-template #inputClearTpl>
+            <i
+                    nz-icon
+                    class="ant-input-clear-icon"
+                    nzTheme="fill"
+                    nzType="close-circle"
+                    *ngIf="searchQuery && searchQuery.length else searchIconTpl"
+                    (click)="searchQuery = null"
+            ></i>
+        </ng-template>
+        <ng-template #searchIconTpl>
+            <i
+                    nz-icon
+                    nzTheme="outline"
+                    nzType="search"
+                    style="color: #ff005b"
+                    (click)="searchQuery = null"
+            ></i>
+        </ng-template>
+    </div>
+</div>

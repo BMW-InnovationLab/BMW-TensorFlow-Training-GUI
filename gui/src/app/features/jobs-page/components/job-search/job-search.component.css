@@ -1,0 +1,102 @@
+.search-container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.search.filter {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0 auto 1rem;
+    position: relative;
+}
+
+.filter > nz-input-group {
+    width: 40%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.filter > nz-checkbox-wrapper {
+    width: 20%;
+}
+
+.input-search {
+    width: 75%;
+    margin: 0 auto 1.5rem;
+    box-shadow: none !important;
+}
+
+nz-input-group {
+    margin-bottom: 1rem;
+}
+
+::ng-deep nz-input-group.input-search {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #ff005b;
+}
+
+nz-select {
+    width: 100%;
+}
+
+.checkbox-group {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-85%);
+}
+
+.checkbox-group > div {
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+::ng-deep .checkbox-group > div span:last-child{
+    padding-right: 0;
+}
+
+::ng-deep .checkbox-group > div:first-child .ant-checkbox-inner::after {
+    left: 20%;
+}
+
+@media screen and (max-width: 992px) {
+    .filter > nz-input-group {
+        width: 50%;
+    }
+
+    .filter > nz-checkbox-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    .search.filter{
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin: 0;
+    }
+    .filter > nz-input-group {
+        width: 100%;
+    }
+
+    .filter > nz-checkbox-wrapper {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .input-search {
+        width: 100%;
+    }
+}

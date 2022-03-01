@@ -1,0 +1,77 @@
+<nz-card class="card" nzHoverable="true" nzBordered>
+    <div nz-row nzJustify="start" nzAlign="middle">
+        <div class="information">
+            <span [nz-tooltip]="job_name" class="job-title">{{ job_name }}</span>
+        </div>
+
+        <div class="button-group" [class.mobile]="mobile">
+            <div *ngIf="!mobile"
+                 style="display: flex; justify-content: flex-end; align-items: center;">
+                <button nz-button
+                        nzType="default"
+                        nzShape="circle"
+                        nzSize="large"
+                        style="margin-right: 10px; color: #ff005b;"
+                        nz-tooltip="Open Tensorboard"
+                        (click)="getTensorboardPort()"
+                        [nzLoading]="loadingButton()">
+                    <i nz-icon nzType="dashboard"></i>
+                </button>
+                <button nz-button
+                        nzType="default"
+                        nzShape="circle"
+                        nzSize="large"
+                        nzDanger
+                        nz-tooltip="Delete Archive"
+                        nz-popconfirm
+                        [nzPopconfirmTitle]="'Delete Archive?'"
+                        nzPopconfirmPlacement="bottom"
+                        (nzOnConfirm)="onJobRemove()">
+                    <i nz-icon nzType="close-circle"></i>
+                </button>
+            </div>
+
+            <div *ngIf="mobile"
+                 style="display: flex; justify-content: flex-end; align-items: center;">
+                <button nz-button
+                        nz-dropdown
+                        nzType="default"
+                        nzShape="circle"
+                        nzSize="large"
+                        [nzDropdownMenu]="menu">
+                    <i nz-icon nzType="menu"></i>
+                </button>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu>
+                        <button nz-menu-item
+                                nz-button
+                                nzType="default"
+                                nzSize="large"
+                                style="border: 0; color: #ff005b; width: 100%"
+                                (click)="getTensorboardPort()"
+                                [nzLoading]="loadingButton()">
+                            <i nz-icon nzType="dashboard" style="font-size: 15px;"></i>
+                            <span style="font-size: 15px;">Open Tensorboard</span>
+                        </button>
+                        <li nz-menu-divider></li>
+                        <button nz-button
+                                nz-menu-item
+                                nzDanger
+                                nzType="default"
+                                nzSize="large"
+                                style="border: 0; width: 100%"
+                                nz-popconfirm
+                                [nzPopconfirmTitle]="'Delete Archive?'"
+                                nzPopconfirmPlacement="bottom"
+                                (nzOnConfirm)="onJobRemove()">
+                            <i nz-icon
+                               nzType="close-circle"
+                               style="font-size: 15px;"></i>
+                            <span style="font-size: 15px;">Delete Archive</span>
+                        </button>
+                    </ul>
+                </nz-dropdown-menu>
+            </div>
+        </div>
+    </div>
+</nz-card>

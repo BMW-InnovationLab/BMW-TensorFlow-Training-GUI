@@ -1,0 +1,83 @@
+<form (ngSubmit)="submitForm()" [formGroup]="prepareDatasetForm" nz-form nzLayout="vertical"
+      style="justify-content: space-between; display: flex; flex-wrap: wrap">
+
+<!--      Dataset folder-->
+    <nz-form-item style="width: 100%; display: block">
+        <nz-form-label nzFlex="1">Dataset Folder :</nz-form-label>
+        <nz-form-control [nzErrorTip]="datasetErrorTpl" nzFlex="1" nzHasFeedback>
+            <nz-select (ngModelChange)="onDatasetFolderSelection()" formControlName="dataset_name"
+                       nz-tooltip="The name of the folder containing the images and labels to be used in the training job" nzAllowClear
+                       nzPlaceHolder="Dataset Folder" nzShowSearch nzTooltipPlacement="topRight">
+                <nz-option *ngFor="let datasets of availableFiles" [nzLabel]="datasets"
+                           [nzValue]="datasets"></nz-option>
+            </nz-select>
+            <ng-template #datasetErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please choose a dataset folder!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+<!-- Label type-->
+    <nz-form-item style="width: 100%; display: block">
+        <nz-form-label nzFlex="1">Label Types :</nz-form-label>
+        <nz-form-control [nzErrorTip]="datasetLTErrorTpl" nzFlex="1" nzHasFeedback>
+            <nz-select formControlName="dataset_label_type" nz-tooltip="The format of the chosen dataset’s labels"
+                       nzAllowClear nzPlaceHolder="Label Types" nzShowSearch
+                       nzTooltipPlacement="topRight">
+                <nz-option *ngFor="let lb of labelTypes" [nzLabel]="lb" [nzValue]="lb"></nz-option>
+            </nz-select>
+            <ng-template #datasetLTErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please choose a label type for your dataset folder!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+<!-- Training percentage -->
+    <nz-form-item class="split-ratio-form-item">
+        <nz-form-label nzFlex="1">Training (%) :</nz-form-label>
+        <nz-form-control [nzErrorTip]="trainingErrorTpl" nzFlex="1" nzHasFeedback>
+            <nz-input-number
+                    (ngModelChange)="changeTesting()"
+                    [nzMax]="100"
+                    [nzMin]="1"
+                    [nzParser]="parserPercent"
+                    [nzStep]="1"
+                    formControlName="training"
+                    nz-tooltip="The percentage of the dataset images needed for training"
+                    nzPlaceHolder="Training (%)"
+                    nzTooltipPlacement="bottomRight"
+                    style="width: 100%"
+            ></nz-input-number>
+            <ng-template #trainingErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please enter a number
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+<!--  Testing percentage -->
+    <nz-form-item class="split-ratio-form-item">
+        <nz-form-label nzFlex="1">Testing (%) :</nz-form-label>
+        <nz-form-control [nzErrorTip]="testingErrorTpl" nzFlex="1" nzHasFeedback>
+            <nz-input-number
+                    [nzMax]="100"
+                    [nzMin]="1"
+                    [nzParser]="parserPercent"
+                    [nzStep]="1"
+                    formControlName="testing"
+                    nz-tooltip="The percentage of the dataset images needed for testing"
+                    nzDisabled="true"
+                    nzPlaceHolder="Testing (%)"
+                    nzTooltipPlacement="bottomRight"
+                    style="width: 100%"
+            ></nz-input-number>
+            <ng-template #testingErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please enter a number
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+</form>

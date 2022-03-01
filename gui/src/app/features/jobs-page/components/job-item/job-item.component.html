@@ -1,0 +1,155 @@
+<nz-card class="card"
+         [ngClass]="(jobIsDone() !== -1)? 'border-done': 'border-progress'"
+         nzHoverable="true"
+         nzBordered>
+    <div nz-row nzJustify="start" nzAlign="middle">
+        <div class="progress" [class.mobile]="mobile">
+            <nz-tag *ngIf='jobIsDone() === -1'
+                    nzColor="default"
+                    style="border-radius: 50%; width: 40px; height: 40px; display: flex;
+                        justify-content: space-evenly; align-items: center; border: 1px solid #ff005b">
+                <i nz-icon nzSpin nzType="sync" style="font-size: 18px;"></i>
+            </nz-tag>
+            <nz-tag *ngIf='jobIsDone() !== -1'
+                    nzColor="success"
+                    style="border-radius: 50%; width: 40px; height: 40px; display: flex;
+                        justify-content: space-evenly; align-items: center">
+                <i nz-icon nzType="check-circle" style="font-size: 18px;"></i>
+            </nz-tag>
+        </div>
+
+        <div class="information">
+            <div>
+                <span [nz-tooltip]="item.name" nzTooltipPlacement="topLeft" class="job-title">{{ item.name }}</span>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th>Model:</th>
+                        <td>{{ item.model }}</td>
+                    </tr>
+                    <tr>
+                        <th>Dataset:</th>
+                        <td>{{ item.dataset }}</td>
+                    </tr>
+                    <tr>
+                        <th>Author:</th>
+                        <td>{{ item.author }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="button-group" [class.mobile]="mobile">
+            <div *ngIf="!mobile"
+                 style="display: flex; justify-content: flex-end; align-items: center;">
+                <button [disabled]="jobIsDone() === -1"
+                        nz-button
+                        nzType="default"
+                        nzShape="circle"
+                        nzSize="large"
+                        (click)="downloadResults()"
+                        [style.opacity]="(jobIsDone() === -1)? 0.6:1"
+                        nz-tooltip="Download"
+                        style="margin-right: 10px;  color: #ff005b;">
+                    <i nz-icon nzType="download"></i>
+                </button>
+                <button nz-button
+                        nzType="default"
+                        nzShape="circle"
+                        nzSize="large"
+                        style="margin-right: 10px; color: #ff005b;"
+                        nz-tooltip="Open Tensorboard"
+                        (click)="getTensorboardPort()"
+                        [nzLoading]="loadingButton()">
+                    <i nz-icon nzType="dashboard"></i>
+                </button>
+                <button nz-button
+                        nzType="default"
+                        nzShape="circle"
+                        nzSize="large"
+                        style="margin-right: 10px; color: #ff005b;"
+                        nz-tooltip="Open Logs"
+                        (click)="logsButton()">
+                    <i nz-icon nzType="info-circle"></i>
+                </button>
+                <button nz-button
+                        nzType="default"
+                        nzShape="circle"
+                        nzSize="large"
+                        nzDanger
+                        nz-popconfirm
+                        [nzPopconfirmTitle]="jobIsDone() !== -1 ? 'Close Job?' : 'Cancel Job?'"
+                        nzPopconfirmPlacement="bottom"
+                        [nz-tooltip]="jobIsDone() !== -1 ? 'Close Job' : 'Cancel Job'"
+                        (nzOnConfirm)="onJobRemove()">
+                    <i nz-icon [nzType]="jobIsDone() !== -1 ? 'close-circle' : 'stop'"></i>
+                </button>
+            </div>
+
+            <div *ngIf="mobile"
+                 style="display: flex; justify-content: flex-end; align-items: center;">
+                <button nz-button
+                        nz-dropdown
+                        nzType="default"
+                        nzShape="circle"
+                        nzSize="large"
+                        [nzDropdownMenu]="menu">
+                    <i nz-icon nzType="menu"></i>
+                </button>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu>
+                        <button [disabled]="jobIsDone() === -1"
+                                nz-menu-item
+                                nz-button
+                                nzType="default"
+                                nzSize="large"
+                                (click)="downloadResults()"
+                                style="color: #ff005b; border: 0; width: 100%;">
+                            <i nz-icon nzType="download" style="font-size: 15px;"></i>
+                            <span style="font-size: 15px;">Download report</span>
+                        </button>
+                        <li nz-menu-divider></li>
+                        <button nz-menu-item
+                                nz-button
+                                nzType="default"
+                                nzSize="large"
+                                style="border: 0; color: #ff005b; width: 100%"
+                                (click)="getTensorboardPort()"
+                                [nzLoading]="loadingButton()">
+                            <i nz-icon nzType="dashboard" style="font-size: 15px;"></i>
+                            <span style="font-size: 15px;">Open Tensorboard</span>
+                        </button>
+                        <li nz-menu-divider></li>
+                        <button nz-menu-item
+                                nz-button
+                                nzType="default"
+                                nzSize="large"
+                                style="border: 0; color: #ff005b; width: 100%"
+                                (click)="logsButton()">
+                            <i nz-icon nzType="info-circle" style="font-size: 15px;"></i>
+                            <span style="font-size: 15px;">Open Logs</span>
+                        </button>
+                        <li nz-menu-divider></li>
+                        <button nz-button
+                                nz-menu-item
+                                nzDanger
+                                nzType="default"
+                                nzSize="large"
+                                style="border: 0; width: 100%"
+                                nz-popconfirm
+                                [nzPopconfirmTitle]="jobIsDone() !== -1 ? 'Close Job?' : 'Cancel Job?'"
+                                nzPopconfirmPlacement="bottom"
+                                (nzOnConfirm)="onJobRemove()">
+                            <i nz-icon
+                               [nzType]="jobIsDone() === -1 ? 'close-circle' : 'stop'"
+                               style="font-size: 15px;"></i>
+                            <span style="font-size: 15px;">
+                                {{jobIsDone() === -1 ? 'Close Job' : 'Stop Job'}}</span>
+                        </button>
+                    </ul>
+                </nz-dropdown-menu>
+            </div>
+        </div>
+    </div>
+</nz-card>

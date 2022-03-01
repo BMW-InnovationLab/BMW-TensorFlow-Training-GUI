@@ -1,0 +1,10 @@
+{
+  "num_classes": 2,
+  "batch_size": 1,
+  "learning_rate": 0.019,
+  "training_steps": 1000,
+  "eval_steps": 1,
+  "width": 640,
+  "height": 640
+}
+

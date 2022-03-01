@@ -1,0 +1,72 @@
+<nz-layout>
+    <!--  header is same as the jobs page, i'll add comments to the new stuff-->
+    <app-header [allJobs]="allJobs"
+                [downloadableModels]="downloadableModels"
+                [finishedJobs]="finishedJobs"
+                [title]="title"
+    ></app-header>
+
+    <!--  body  -->
+
+    <nz-content>
+        <div class="bg"></div>
+        <div *ngIf="mobile" class="bg-1"></div>
+        <div class="stepper" nz-row>
+            <nz-card [ngStyle]="{'height': hyperParametersHidden ? '100%' : '75%'}" class="stepper-card" nz-col>
+
+                <nz-steps [nzCurrent]="current" class="stepper-header">
+                    <nz-step nzIcon="book" nzTitle="Prepare Dataset"></nz-step>
+                    <nz-step nzIcon="setting" nzTitle="General Settings"></nz-step>
+                    <nz-step nzIcon="form" nzTitle="Hyper Parameters"></nz-step>
+                </nz-steps>
+
+                <div class="steps-content">
+                    <nz-card [hidden]="current !== 0" class="steps-content-card">
+                        <app-prepare-dataset class="prepare-dataset"></app-prepare-dataset>
+                    </nz-card>
+                    <nz-card [hidden]="current !== 1" class="steps-content-card">
+                        <app-general-settings [runningJobs]="allJobs"
+                                              [downloadableModelsKey]="getDownloadableModels()"
+                                class="prepare-dataset"></app-general-settings>
+                    </nz-card>
+                    <nz-card [hidden]="current !== 2" class="steps-content-card">
+                        <app-hyper-parameters [hidden]="switchState" class="prepare-dataset"></app-hyper-parameters>
+                        <app-advanced-hyper-parameters [hidden]="!switchState"
+                                                       class="prepare-dataset"></app-advanced-hyper-parameters>
+                            <label [(ngModel)]="allowMemoryGrowth" nz-checkbox
+                                   *ngIf="!isCPU"
+                                   nz-tooltip="If memory growth is enabled, the runtime initialization will not allocate all memory on the device. This is useful when you have GPUs with a big amount of memory."
+                                   nzTooltipPlacement="top"
+                                   style="float: left; margin-right: 1em"
+                            >Allow Memory Growth</label>
+                            <nz-switch (click)="switch()" [ngModel]="switchState" nzCheckedChildren="Advanced"
+                                       nzUnCheckedChildren="Basic" style="float: right"></nz-switch>
+                    </nz-card>
+                </div>
+
+                <div class="steps-action">
+                    <button (click)="done()" *ngIf="current === 2" [nzLoading]="doneButtonLoading"
+                            class="footer-buttons"
+                            nz-button nzType="primary">
+                        <span>Done</span>
+                    </button>
+                    <button (click)="next()" *ngIf="current < 2"
+                            [nzLoading]="step2NextButtonLoading" class="footer-buttons" nz-button nzType="default"
+                            style="color: #ff005b; border-color: #ff005b">
+                        <span>Next</span>
+                    </button>
+                    <button (click)="pre()" *ngIf="current > 0" [disabled]="step2PreviousButtonDisabled"
+                            class="footer-buttons"
+                            nz-button nzType="default">
+                        <span>Previous</span>
+                    </button>
+                    <button (click)="cancel()" *ngIf="current > 1" [disabled]="cancelButtonDisabled"
+                            class="footer-buttons"
+                            nz-button nzType="default" routerLink="/jobs">
+                        <span>Cancel</span>
+                    </button>
+                </div>
+            </nz-card>
+        </div>
+    </nz-content>
+</nz-layout>

@@ -1,0 +1,27 @@
+version: '2.3'
+
+services:
+
+  docker_sdk:
+    image: tf2_docker_sdk_api:latest
+    network_mode: "host"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./datasets:/datasets
+      - ./checkpoints:/checkpoints
+      - ./docker_sdk_api:/docker_sdk_api
+      - ./training_api:/training_api
+      - ./tensorboards:/tensorboards
+
+  user_inteface:
+    image: tf2_gui:latest
+    ports:
+      - "4200:80"
+
+  inference_api:
+    image: tf2_inference_api_cpu:latest
+    ports:
+    - "4343:4343"
+    volumes:
+    - ./inference_api/models:/models
+    - ./inference_api/models_hash:/models_hash

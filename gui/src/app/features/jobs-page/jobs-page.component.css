@@ -1,0 +1,104 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    background-color: #F6F6F8;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-position: center;
+    background-size: cover;
+}
+
+.divider {
+    font-size: 2.5em;
+    background-color: black;
+}
+
+.button {
+    margin-left: 1em;
+    margin-right: 1em;
+    font-size: 1.15em;
+}
+
+
+.bg-1 {
+    background-color: #F6F6F8;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    top: 100%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-position: center;
+    background-size: cover;
+}
+
+.card {
+    width: 100%;
+}
+
+.no-running-jobs {
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.drawer-title {
+    font-family: Roboto-Regular;
+    font-size: 2.5em;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #4A4A4A;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+::ng-deep .archive-drawer .ant-drawer-header {
+    background-color: #F6F6F8 !important;
+    border-bottom: 0 !important;
+}
+
+::ng-deep .archive-drawer .ant-drawer-header .anticon {
+    font-size: 1.5em;
+}
+
+@media only screen and (min-height: 610px) and (max-height: 710px) {
+    .bg-1 {
+        height: 30%;
+    }
+}
+
+@media only screen and (min-height: 590px) and (max-height: 610px) {
+    .bg-1 {
+        height: 40%;
+    }
+}
+
+@media only screen and (min-height: 568px) and (max-height: 590px) {
+    .bg-1 {
+        height: 30%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .drawer-title {
+        font-size: 1.9em;
+    }
+}

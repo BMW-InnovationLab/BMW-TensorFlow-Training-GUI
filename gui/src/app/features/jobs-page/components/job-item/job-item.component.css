@@ -1,0 +1,99 @@
+.card {
+    width: 100%;
+    overflow: auto;
+    border-radius: 5px;
+    border: 1px solid #ebe7e3;
+    cursor: default;
+}
+
+.border-progress {
+    border-left: 4px solid rgba(255, 0, 91, 0.82);
+}
+
+.border-done {
+    border-left: 4px solid #52C41A;
+}
+
+.progress {
+    margin-right: 25px;
+}
+
+.progress.mobile {
+    margin-right: 0;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+::ng-deep .progress nz-tag {
+    margin-right: 0;
+}
+
+.information {
+    max-width: 70%;
+}
+
+.information > div {
+    width: 100%;
+    display: flex;
+}
+
+.information > div:last-child {
+    overflow: hidden;
+}
+
+.information > div > span {
+    width: 100%;
+    overflow: hidden;
+}
+
+.information .job-title {
+    color: gray;
+    font-size: 1.9em;
+    transform: translateY(-10px);
+}
+
+.information .job-title:hover {
+    color: #ff005b;
+}
+
+.information table th, td {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.information table td {
+    color: gray;
+    padding-left: 5px;
+}
+
+.button-group {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+}
+
+.button-group.mobile {
+    position: absolute;
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    transform: none;
+}
+
+@media only screen and (max-width: 1205px) {
+    .information {
+        max-width: 60%;
+    }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 1024px) {
+    .information {
+        max-width: 70%;
+    }
+
+    .information .job-title {
+        font-size: 1.5em;
+    }
+}

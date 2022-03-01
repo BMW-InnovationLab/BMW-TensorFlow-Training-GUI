@@ -1,0 +1,86 @@
+<form (ngSubmit)="submitForm()" [formGroup]="hyperParameterForm" nz-form nzLayout="vertical"
+      style="justify-content: space-between; display: flex; flex-wrap: wrap;">
+    <nz-form-item class="form-item">
+        <nz-form-label nzFlex="1">Learning Rate :</nz-form-label>
+        <nz-form-control [nzErrorTip]="lrErrorTpl" nzFlex="1" nzHasFeedback>
+            <input formControlName="learning_rate"
+                   nz-input
+                   nz-tooltip="Learning Rate (used for training)" nzTooltipPlacement="topRight" placeholder="Learning Rate"/>
+            <ng-template #lrErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please input a number!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('notFloat')">
+                    Must be a float
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="form-item">
+        <nz-form-label nzFlex="1">Batch Size :</nz-form-label>
+        <nz-form-control [nzErrorTip]="bsErrorTpl" nzFlex="1" nzHasFeedback>
+            <input formControlName="batch_size"
+                   nz-input
+                   nz-tooltip="Batch Size (used for training)" nzTooltipPlacement="topRight" placeholder="Batch Size"/>
+            <ng-template #bsErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please input a number!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('notInt')">
+                    Must be an int.
+                </ng-container>
+                <ng-container *ngIf="control.hasError('notEven')">
+                    Must be even.
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="form-item">
+        <nz-form-label nzFlex="1">Number of Classes :</nz-form-label>
+        <nz-form-control [nzErrorTip]="NbCErrorTpl" nzFlex="1" nzHasFeedback>
+            <input formControlName="numberOfClasses"
+                   nz-input
+                   nz-tooltip="The number of distinct object type present in the data" nzTooltipPlacement="topRight" placeholder="Number of Classes"/>
+            <ng-template #NbCErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please input a number!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('notInt')">
+                    Must be an int.
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item style="width: 100%; display: block;">
+        <nz-form-label nzFlex="1">Training Steps :</nz-form-label>
+        <nz-form-control [nzErrorTip]="TRSErrorTpl" nzFlex="1" nzHasFeedback>
+            <input formControlName="trainingSteps"
+                   nz-input
+                   nz-tooltip="The number of steps to be completed before training the model is done" nzTooltipPlacement="topRight" placeholder="Training Steps"/>
+            <ng-template #TRSErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please input a number!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('notInt')">
+                    Must be an int.
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+<!--    <nz-form-item class="form-item-2">-->
+<!--        <nz-form-label nzFlex="1">Eval Steps :</nz-form-label>-->
+<!--        <nz-form-control [nzErrorTip]="ESErrorTpl" nzFlex="1" nzHasFeedback>-->
+<!--            <input formControlName="evalSteps"-->
+<!--                   nz-input-->
+<!--                   nz-tooltip="The number of steps to be completed before training the model is done" nzTooltipPlacement="topRight" placeholder="Eval Steps"/>-->
+<!--            <ng-template #ESErrorTpl let-control>-->
+<!--                <ng-container *ngIf="control.hasError('required')">-->
+<!--                    Please input a number!-->
+<!--                </ng-container>-->
+<!--                <ng-container *ngIf="control.hasError('notInt')">-->
+<!--                    Must be an int.-->
+<!--                </ng-container>-->
+<!--            </ng-template>-->
+<!--        </nz-form-control>-->
+<!--    </nz-form-item>-->
+</form>

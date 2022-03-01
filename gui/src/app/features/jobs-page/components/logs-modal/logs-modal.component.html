@@ -1,0 +1,26 @@
+<nz-modal (nzOnCancel)="hideModal()"
+          [(nzVisible)]="modalSettings.isVisible"
+          [nzBodyStyle]="{
+                           'overflow-y': 'scroll',
+                           'height': '70vh',
+                           'background-color': 'black',
+                           'color': 'white',
+                           'display': 'flex',
+                           'flex-direction': 'column-reverse'
+                           }"
+          [nzFooter]="modalFooter"
+          [nzTitle]="'Logs | ' + modalSettings.specificLogsJobTitle"
+          hidden
+          nzWidth="70%"
+          nzWrapClassName="vertical-center-modal"
+>
+
+    <!--                    this fills the modal-->
+    <span *ngFor="let log of data.slice().reverse()">  {{log}}<br/> </span>
+</nz-modal>
+
+<!--                  template for the footer of the modal-->
+<ng-template #modalFooter>
+    <button (click)="handleRefreshMiddle()" nz-button nzType="primary">Refresh</button>
+    <button (click)="downloadLogs()" nz-button nzType="primary">Download</button>
+</ng-template>

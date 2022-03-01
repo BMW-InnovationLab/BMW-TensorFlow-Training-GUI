@@ -1,0 +1,15 @@
+{
+  "base_dir": "/home/tensorflow/Tensorflow-Training-GUI-Refactored",
+  "image_name": "tf2_training_api_cpu",
+  "api_folder": "training_api",
+  "dataset_folder_on_host": "datasets",
+  "checkpoints_folder_on_host": "checkpoints",
+  "inference_api_models_folder": "inference_api/models",
+  "weights_path": "weights",
+  "checkpoint_path": "/checkpoints",
+  "servable_checkpoints_folder": "/checkpoints/servable",
+  "dataset_folder": "/datasets",
+  "networks_path": "/training_api/assets/networks.json",
+  "tensorboards_folder_on_host": "tensorboards",
+  "tensorboards_path": "/tensorboards"
+}

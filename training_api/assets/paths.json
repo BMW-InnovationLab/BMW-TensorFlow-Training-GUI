@@ -1,0 +1,20 @@
+{
+  "log_dir": "/assets/training_dir/model",
+  "pid_file": "/assets/pid.txt",
+  "images_dir": "/dataset/images",
+  "labels_dir": "/dataset/labels",
+  "training_dir": "/assets/training_dir/data/",
+  "object_classes_path": "/dataset/objectclasses.json",
+  "label_map_path": "/assets/training_dir/data/object-detection.pbtxt",
+  "model_dir": "/assets/training_dir/model",
+  "weights_dir": "/weights",
+  "export_dir": "/assets/export",
+  "checkpoints_dir": "/checkpoints",
+  "servable_dir": "/checkpoints/servable",
+  "inference_model_dir": "/inference_api/models",
+  "default_configuration_file": "assets/default_configuration.json",
+  "tensorboards_dir": "/tensorboards"
+}
+
+
+

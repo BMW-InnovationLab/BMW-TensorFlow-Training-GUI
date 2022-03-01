@@ -1,0 +1,4 @@
+{
+  "base_url": "http://localhost:",
+  "training_ip_tensorboard_refresh": "/tensorboard/refresh"
+}

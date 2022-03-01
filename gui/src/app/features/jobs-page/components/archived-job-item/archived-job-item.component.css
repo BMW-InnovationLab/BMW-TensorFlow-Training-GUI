@@ -1,0 +1,49 @@
+.card {
+    width: 100%;
+    overflow: auto;
+    border-radius: 5px;
+    border: 1px solid #ebe7e3;
+    cursor: default;
+    border-left: 4px solid #52C41A;
+}
+
+.information {
+    max-width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.information .job-title {
+    width: 100%;
+    overflow: hidden;
+    color: gray;
+    font-size: 1.9em;
+    white-space: nowrap;
+}
+
+.information .job-title:hover {
+    color: #ff005b;
+}
+
+.button-group {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+}
+
+.button-group.mobile {
+    position: absolute;
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    transform: none;
+}
+
+@media only screen and (min-width: 280px) and (max-width: 1024px) {
+    .information .job-title {
+        font-size: 1.5em;
+    }
+}

@@ -1,0 +1,72 @@
+<nz-layout>
+    <app-header [downloadableModels]="downloadableModels"
+                [finishedJobs]="finishedJobs"
+                [title]="title"
+    ></app-header>
+    <!--  page body-->
+    <nz-content>
+
+        <div class="bg"></div>
+        <div *ngIf="windowHeight && mobile" class="bg-1"></div>
+
+        <app-job-search [jobs]="allJobs"
+                        (searchResults)="showFiltered($event)"></app-job-search>
+
+        <div nz-row nzAlign="top">
+            <div [nzXXl]="{span: 16, offset: 4}"
+                 nz-col
+                 nzOffset="3"
+                 nzSpan="18">
+                <nz-list nzGrid nzItemLayout="vertical">
+                    <nz-list-item *ngFor="let job of displayList">
+                        <app-job-item (jobRemoved)=onJobRemove($event)
+                                      (logsRequested)=logsButton($event)
+                                      [downloadableModels]="downloadableModels"
+                                      [finishedJobs]="finishedJobs"
+                                      [item]="job"
+                                      class="card"
+                        ></app-job-item>
+                    </nz-list-item>
+                </nz-list>
+                <app-logs-modal (refresh)="handleRefreshMiddle()"
+                                [data]="logs"
+                                [modalSettings]="logsModalSettings"></app-logs-modal>
+                <!--        this appears if the jobs list is greater than 5, and appends the rest to a different page-->
+                <nz-pagination (nzPageIndexChange)="page($event)" [(nzPageIndex)]="pageIndex"
+                               [nzPageSize]="numberOfJobsPerPage"
+                               [nzTotal]="searchList.length" nzHideOnSinglePage nzSimple
+                               style="float: right; padding-bottom: 20px"
+                ></nz-pagination>
+            </div>
+        </div>
+        <div *ngIf="allJobs.length === 0" class="no-running-jobs">
+            <app-not-found></app-not-found>
+        </div>
+
+        <ng-template #DrawerTitle>
+            <h1 class="drawer-title">Tensorboard Archives</h1>
+        </ng-template>
+
+        <nz-drawer [nzClosable]="true" [nzCloseIcon]="mobile ? '':'close'" [nzVisible]="archiveDrawerIsVisible" [nzPlacement]="mobile ? 'bottom':'right'"
+                   [nzTitle]="DrawerTitle" (nzOnClose)="closeArchiveDrawer()" [nzWidth]="'40vw'" [nzHeight]="'60vh'"
+                   [nzBodyStyle]="{'background-color': '#F6F6F8'}" nzWrapClassName="archive-drawer">
+            <ng-container *nzDrawerContent>
+                <nz-list nzGrid nzItemLayout="vertical">
+                    <nz-empty nzNotFoundImage="../../../assets/images/empty.svg"
+                              [nzNotFoundContent]="archiveDrawerContentTpl"
+                              *ngIf="archivedJobs.length === 0">
+                        <ng-template #archiveDrawerContentTpl>
+                            <span>No Data</span>
+                        </ng-template>
+                    </nz-empty>
+                    <nz-list-item *ngFor="let job of archivedJobs">
+                        <app-archived-job-item (jobRemoved)=onArchivedJobRemove($event)
+                                               [job_name]="job"
+                                               class="card"
+                        ></app-archived-job-item>
+                    </nz-list-item>
+                </nz-list>
+            </ng-container>
+        </nz-drawer>
+    </nz-content>
+</nz-layout>

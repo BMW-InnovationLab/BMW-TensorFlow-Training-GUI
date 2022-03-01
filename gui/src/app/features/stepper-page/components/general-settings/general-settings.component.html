@@ -1,0 +1,129 @@
+<form (ngSubmit)="submitForm()" [formGroup]="generalSettingsForm" nz-form nzLayout="vertical"
+      style="justify-content: space-between; display: flex; flex-wrap: wrap">
+
+    <nz-form-item [ngStyle]="{'pointer-events' : containerNameDisabled === true ? 'none' : 'auto'}"
+                  class="form-item">
+        <nz-form-label nzFlex="1">Container Name :</nz-form-label>
+        <nz-form-control [nzErrorTip]="userErrorTpl" nzFlex="1" nzHasFeedback nzValidatingTip="Validating...">
+            <input (keydown)="excludedCharacters($event)"
+                   formControlName="name"
+                   nz-input nz-tooltip="The given name used to identify the training job and the resulting model" nzTooltipPlacement="topRight"
+                   placeholder="Container Name"/>
+            <ng-template #userErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please input the container name!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('duplicated')">
+                    The container name is redundant!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="form-item">
+        <nz-form-label nzFlex="1">Author Name :</nz-form-label>
+        <nz-form-control [nzErrorTip]="authorErrorTpl" nzFlex="1" nzHasFeedback nzValidatingTip="Validating...">
+            <input (keydown)="excludedCharacters($event)"
+                   formControlName="author"
+                   nz-input nz-tooltip="The author name" nzTooltipPlacement="topRight"
+                   placeholder="Author Name"/>
+            <ng-template #authorErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please input the author name!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item [ngStyle]="{'pointer-events' : gpusCountDisabled === true ? 'none' : 'auto'}"
+                  style="width: 100%; display: block;">
+        <nz-form-label nzFlex="1">Architecture :</nz-form-label>
+        <nz-form-control [nzErrorTip]="gpuErrorTpl" nzFlex="1" nzHasFeedback>
+            <!--        TODO: change multiple selection to single selection later-->
+            <nz-select [(ngModel)]="selectedGPUs"
+                       [nzMaxMultipleCount]="2" [nzMaxTagCount]="2" formControlName="gpus"
+                       nz-tooltip="Choose whether the training should be done on CPU or  GPU (when available)" nzMode="multiple" nzPlaceHolder="Architecture"
+                       nzTooltipPlacement="topRight">
+                <nz-option *ngIf="availableGPUsKeys.includes(-1)" [nzValue]="-1" [nzLabel]="availableGPUsValues[0]"></nz-option>
+                <ng-container *ngIf="!availableGPUsKeys.includes(-1)">
+                    <nz-option *ngFor="let gpus of availableGPUsKeys; let index = index"
+                               [nzHide]="!isNotSelected(gpus)" [nzLabel]="availableGPUsValues[index]"
+                               [nzValue]="gpus"></nz-option>
+                </ng-container>
+            </nz-select>
+            <ng-template #gpuErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please select an option!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="form-item">
+        <nz-form-label nzFlex="1">API Port :</nz-form-label>
+        <nz-form-control nzFlex="1" nzHasFeedback>
+            <nz-input-number
+                    [nzStep]="1"
+                    formControlName="api_port"
+                    nz-tooltip="The port used by the API responsible of training the model"
+                    nzDisabled="true"
+                    nzPlaceHolder="API Port"
+                    nzTooltipPlacement="topRight"
+                    style="width: 100%"
+            ></nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="form-item">
+        <nz-form-label nzFlex="1">Tensorboard Port :</nz-form-label>
+        <nz-form-control nzFlex="1" nzHasFeedback>
+            <nz-input-number
+                    [nzStep]="1"
+                    formControlName="tensorboard_port"
+                    nz-tooltip="The port used by tensorboard to showcase the training progress"
+                    nzDisabled="true"
+                    nzPlaceHolder="Tensorboard Port"
+                    nzTooltipPlacement="topRight"
+                    style="width: 100%"
+            ></nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item [ngStyle]="{'pointer-events' : networksDisabled === true ? 'none' : 'auto'}"
+                  style="width: 100%; display: block;">
+        <nz-form-label nzFlex="1">Networks :</nz-form-label>
+        <nz-form-control [nzErrorTip]="networkErrorTpl" nzFlex="1" nzHasFeedback>
+            <nz-select formControlName="network_architecture"
+                       nz-tooltip=" Name of the network to use" nzAllowClear nzPlaceHolder="Networks"
+                       nzShowSearch nzTooltipPlacement="topRight">
+                <nz-option *ngFor="let networks of networksList" [nzLabel]="networks" [nzValue]="networks"></nz-option>
+            </nz-select>
+            <ng-template #networkErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please select an option!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item [hidden]="!checked" [ngStyle]="{'pointer-events' : checkpointsDisabled === true ? 'none' : 'auto'}"
+                  style="width: 100%; display: block;">
+        <nz-form-label nzFlex="1">Available Checkpoints :</nz-form-label>
+        <nz-form-control [nzErrorTip]="checkpointErrorTpl" nzFlex="1" nzHasFeedback>
+            <nz-select (click)="getCheckpoints()"
+                       formControlName="checkPoints"
+                       nz-tooltip="The name of the folder containing the local weights to be used as checkpoint for this training job"
+                       nzAllowClear nzPlaceHolder="Checkpoints"
+                       nzShowSearch nzTooltipPlacement="topRight">
+                <nz-option *ngFor="let checkpoints of checkpointsList; let i = index"
+                           [nzLabel]="checkpoints + ' | ' + generalSettingsForm.value.network_architecture" [nzValue]="checkpoints"
+                ></nz-option>
+            </nz-select>
+            <ng-template #checkpointErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please select an option!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+
+<label (ngModelChange)="checkPointsValidator()" [(ngModel)]="checked" nz-checkbox>From checkpoint</label>

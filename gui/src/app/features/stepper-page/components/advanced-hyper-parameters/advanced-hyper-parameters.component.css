@@ -1,0 +1,11 @@
+.form-item-2 {
+  width: 49%;
+  display: block;
+}
+
+@media only screen and (min-width: 280px) and (max-width: 768px) {
+  .form-item-2 {
+    width: 100%;
+    display: block;
+  }
+}
