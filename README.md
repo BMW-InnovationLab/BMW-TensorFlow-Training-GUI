@@ -1,6 +1,8 @@
 
 
-# Tensorflow Object Detection Training GUI for Linux
+# Tensorflow 2 Object Detection Training GUI for Linux
+
+Updated for CUDA 11 and Tensorflow 2!!!
 
 This repository allows you to get started with training a State-of-the-art Deep Learning model with little to no configuration needed!  You provide your labeled dataset and you can start the training right away and monitor it with TensorBoard. 
 You can even test your model with our built-in Inference REST API. Training with TensorFlow has never been so easy.
