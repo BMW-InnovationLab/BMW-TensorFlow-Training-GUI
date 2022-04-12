@@ -1,3 +1,4 @@
+#BMNW TechOffice Munich
 FROM ubuntu:20.04
 LABEL maintainer "BMW InnovationLab"
 ARG DEBIAN_FRONTEND=noninteractive
