@@ -1,3 +1,4 @@
+# TechOffice MUNICH - Author Marc Kamradt
 FROM tensorflow/tensorflow:2.5.0
 ARG DEBIAN_FRONTEND=noninteractive
 
