@@ -28,7 +28,7 @@ export class DataSenderSecondApiService {
     }
 
     advancedConfigPost(json: ContentAdvanced, apiPort: number): Observable<HttpResponse<any>> {
-        return this.http.post<HttpResponse<any>>(this.serviceUrl + apiPort + '/anyuration/advanced', json,{headers:this.headers});
+        return this.http.post<HttpResponse<any>>(this.serviceUrl + apiPort + '/configuration/advanced', json,{headers:this.headers});
     }
 
     datasetPost(json: DataPreparation, apiPort: number): Observable<HttpResponse<any>> {
