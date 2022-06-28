@@ -19,6 +19,7 @@ error_logging = Error()
 app = FastAPI(version='1.0', title='BMW InnovationLab tensorflow 2.5.0  inference Automation',
 			  description="<b>API for performing tensorflow 2.5.0  inference</b></br></br>"
 						  "<b>Contact the developers:</b></br>"
+						  "<b>Hadi Koubeissy: <a href='mailto:hadi.koubeissy@inmind.ai'>hadi.koubeissy@inmind.ai</a></b></br>"
 						  "<b>BMW Innovation Lab: <a href='mailto:innovation-lab@bmw.de'>innovation-lab@bmw.de</a></b>")
 
 
