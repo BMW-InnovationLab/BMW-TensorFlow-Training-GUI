@@ -1,5 +1,6 @@
 import json
 import os
+import pandas as pd
 
 from application.data_preparation.models.tf_record_path import TfRecordPath
 from application.data_preparation.services.dataset_splitter_service import DatasetSplitterService
@@ -40,8 +41,9 @@ class DataPreparationManager(AbstractDataPreparationManager):
 
     def _create_csv_files(self, labels_info: LabelsInformation) -> None:
         self.dataset_cleaning.clean_dataset(labels_info=labels_info)
-        self.labels_to_csv_converter.convert_to_csv(labels_info=labels_info)
-        self.dataset_splitter.split_dataset(labels_info=labels_info)
+        labels_df: pd.DataFrame = self.labels_to_csv_converter.convert_to_csv(labels_info=labels_info)
+        self.dataset_splitter.split_dataset(labels_df=labels_df, labels_info=labels_info)
+
 
     def _create_tf_record(self):
         # create tf records for train and test

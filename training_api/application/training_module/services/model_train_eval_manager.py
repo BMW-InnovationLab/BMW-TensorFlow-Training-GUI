@@ -47,3 +47,4 @@ class ModelTrainEvaluationManager(AbstarctModelTrainEvaluationManager):
         evaluation_thread.start()
         training_thread.start()
         training_thread.join()
+        evaluation_thread.join()

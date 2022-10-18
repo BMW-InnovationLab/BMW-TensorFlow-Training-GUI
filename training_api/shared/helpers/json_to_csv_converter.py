@@ -1,11 +1,9 @@
-import os
-import glob
-import pandas as pd
 import json
-import io
+import os
+from typing import List, Dict
 
-from PIL import Image
-from typing import List, Dict, Any
+import pandas as pd
+from pymage_size import get_image_size
 
 """
 converts a folder containing json labels to a pandas dataframe
@@ -27,41 +25,25 @@ Pandas Dataframe
 """
 
 
-def json_to_csv(labels_path, images_path, column_name):
-    images: List[str] = os.listdir(images_path)
-    labels: List[str] = os.listdir(labels_path)
-    json_list: List[Dict[str, str]] = []
+def json_to_csv(labels_path, images_path, column_name) -> pd.DataFrame:
+    json_list: List[Dict] = []
 
-    for json_file in labels:
-        prefix_name: str = json_file.split('.')[0]
+    for image_filename in os.listdir(images_path):
+        with open(os.path.join(labels_path, image_filename.rsplit(".", 1)[0] + ".json"), "rb") as f:
+            json_data = json.load(f)
 
-        json_data: Dict[str, str] = json.load(open(os.path.join(labels_path, json_file), "rb"))
-
-        image_name: str = ""
-        width: int = 0
-        height: int = 0
-
-        for image in images:
-            if image.split('.')[0] == prefix_name:
-                image_name = image
-                width, height = Image.open(os.path.join(images_path, image)).size
-                break
-
-        if json_data is not []:
-
-            for obj in json_data:
-                value: Dict[str, Any] = {
-                    'filename': str(image_name),
-                    'width': int(width),
-                    'height': int(height),
-                    'class': str(obj['ObjectClassName']),
-                    'xmin': float(obj['Left']),
-                    'ymin': float(obj['Top']),
-                    'xmax': float(obj['Right']),
-                    'ymax': float(obj['Bottom'])
-                }
-
-                json_list.append(value)
-
+        width, height = get_image_size(os.path.join(images_path, image_filename)).get_dimensions()
+        json_list.extend([
+            {
+                'filename': image_filename,
+                'width': width,
+                'height': height,
+                'class': str(obj['ObjectClassName']),
+                'xmin': int(obj['Left']),
+                'ymin': int(obj['Top']),
+                'xmax': int(obj['Right']),
+                'ymax': int(obj['Bottom'])
+            } for obj in json_data
+        ])
     json_df = pd.DataFrame(json_list, columns=column_name)
     return json_df

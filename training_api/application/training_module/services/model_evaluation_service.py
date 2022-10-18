@@ -1,8 +1,6 @@
 import os
-from multiprocessing import Process
-from object_detection.model_lib_v2 import eval_continuously
-import tensorflow.compat.v2 as tf
 
+from application.training_module.helper.trainer_helper import eval_continuously
 from application.paths.services.path_service import PathService
 from domain.models.hyper_parameter_information import HyperParameterInformation
 from domain.models.paths import Paths

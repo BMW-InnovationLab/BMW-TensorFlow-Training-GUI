@@ -41,38 +41,31 @@ class TfRecordGeneratorService(AbstractTfRecordGeneratorService):
     def _initialize_label_map(self) -> None:
         label_map = label_map_util.load_labelmap(self.path.label_map_path)
         self.label_map_dict: Dict[str, int] = label_map_util.get_label_map_dict(label_map)
-
-    def _class_text_to_int(self, row_label) -> Dict[str, int]:
+        
+    def _class_text_to_int(self, row_label) -> int:
         return self.label_map_dict[row_label]
 
-    def _split(self, df, group) -> List[Any]:
+    def _split(self, df: pd.DataFrame, group: str) -> List[Any]:
         data: NamedTuple = namedtuple('data', ['filename', 'object'])
-        gb = df.groupby(group)
-        return [data(filename, gb.get_group(x)) for filename, x in zip(gb.groups.keys(), gb.groups)]
+        df_grouped = dict(tuple(df.groupby(group)))
+        return [data(filename, x) for filename, x in df_grouped.items()]
 
     def _create_tf_example(self, group, path):
         with tf.gfile.GFile(os.path.join(path, '{}'.format(group.filename)), 'rb') as fid:
             encoded_jpg = fid.read()
-        encoded_jpg_io = io.BytesIO(encoded_jpg)
-        image = Image.open(encoded_jpg_io)
-        width, height = image.size
+
+        # get the width and height from the first element because all element are from the same image
+        index, obj = next(iter(group.object.iterrows()))
+        width, height = obj["width"], obj["height"]
 
         filename = group.filename.encode('utf8')
         image_format = b'jpg'
-        xmins: List[float] = []
-        xmaxs: List[float] = []
-        ymins: List[float] = []
-        ymaxs: List[float] = []
-        classes_text: List[str] = []
-        classes: List[int] = []
-
-        for index, row in group.object.iterrows():
-            xmins.append(row['xmin'] / width)
-            xmaxs.append(row['xmax'] / width)
-            ymins.append(row['ymin'] / height)
-            ymaxs.append(row['ymax'] / height)
-            classes_text.append(row['class'].encode('utf8'))
-            classes.append(self._class_text_to_int(row['class']))
+        xmins: List[float] = list(map(lambda x: x / width, group.object['xmin'].tolist()))
+        xmaxs: List[float] = list(map(lambda x: x / width, group.object['xmax'].tolist()))
+        ymins: List[float] = list(map(lambda x: x / height, group.object['ymin'].tolist()))
+        ymaxs: List[float] = list(map(lambda x: x / height, group.object['ymax'].tolist()))
+        classes_text: List[str] = list(map(lambda x: x.encode('utf8'), group.object['class'].tolist()))
+        classes: List[int] = list(map(lambda x: self._class_text_to_int(x), group.object['class'].tolist()))
 
         tf_example = tf.train.Example(features=tf.train.Features(feature={
             'image/height': dataset_util.int64_feature(height),
@@ -94,11 +87,13 @@ class TfRecordGeneratorService(AbstractTfRecordGeneratorService):
         try:
             writer = tf.python_io.TFRecordWriter(tf_record_path.output_path)
             self._initialize_label_map()
-            examples = pd.read_csv(tf_record_path.input_path)
-            grouped = self._split(examples, 'filename')
+
+            examples: pd.DataFrame = pd.read_csv(tf_record_path.input_path)
+
+            grouped = self._split(df=examples, group='filename')
             for group in grouped:
                 tf_example = self._create_tf_example(group, self.path.images_dir)
                 writer.write(tf_example.SerializeToString())
             writer.close()
-        except  Exception as e:
+        except Exception as e:
             raise TfrecordsInvalid(additional_message=e.__str__())

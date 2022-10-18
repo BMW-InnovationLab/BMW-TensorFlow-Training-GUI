@@ -5,9 +5,9 @@ from domain.models.hyper_parameter_information import HyperParameterInformation
 from domain.models.paths import Paths
 from domain.services.contract.abstract_model_trainer_service import AbstractModelTrainerService
 import tensorflow.compat.v2 as tf
-from object_detection import model_lib_v2
 import os
 from domain.exceptions.tensorflow_exception import TensorflowInternalError
+from application.training_module.helper.trainer_helper import train_loop
 
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.INFO)
 
@@ -67,7 +67,7 @@ class ModelTrainerService(AbstractModelTrainerService):
             strategy = tf.compat.v2.distribute.MirroredStrategy()
 
             with strategy.scope():
-                model_lib_v2.train_loop(
+                train_loop(
                     pipeline_config_path=pipeline_config_path,
                     model_dir=self.path.model_dir,
                     train_steps=hyper_params.training_steps,
