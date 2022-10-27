@@ -438,3 +438,5 @@ You might face some errors in some cases during the training. Most common ones a
 - Joe Sleiman, [inmind.ai](https://inmind.ai/), Beirut, Lebanon
 
 - Jimmy Tekli, BMW Innovation Lab, Munich, Germany
+
+- [Chafic Abou Akar](https://github.com/chaficii), BMW TechOffice, Munich, Germany
