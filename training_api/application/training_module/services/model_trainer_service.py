@@ -7,7 +7,7 @@ from domain.services.contract.abstract_model_trainer_service import AbstractMode
 import tensorflow.compat.v2 as tf
 import os
 from domain.exceptions.tensorflow_exception import TensorflowInternalError
-from application.training_module.helper.trainer_helper import train_loop
+from object_detection.model_lib_v2 import train_loop
 
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.INFO)
 
