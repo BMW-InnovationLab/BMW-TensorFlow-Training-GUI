@@ -1,6 +1,7 @@
 import os
 
 from object_detection.model_lib_v2 import eval_continuously
+
 from application.paths.services.path_service import PathService
 from domain.models.hyper_parameter_information import HyperParameterInformation
 from domain.models.paths import Paths
@@ -37,6 +38,6 @@ class ModelEvaluationService(AbstractModelEvaluationService):
             train_steps=hyper_params.training_steps,
             model_dir=self.path.model_dir,
             checkpoint_dir=self.path.model_dir,
-            override_eval_num_epochs=False,
+            override_eval_num_epochs=True,
             wait_interval=180,
             timeout=3600)

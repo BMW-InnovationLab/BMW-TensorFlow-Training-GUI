@@ -42,6 +42,9 @@ class ModelTrainEvaluationManager(AbstarctModelTrainEvaluationManager):
 
 
     def train_eval_continuously(self, hyper_params: HyperParameterInformation) -> None:
+        # Round training_steps up to nearest 100
+        hyper_params.training_steps = int(round(hyper_params.training_steps / 100) * 100) if hyper_params.training_steps > 100 else 100
+
         evaluation_thread = threading.Thread(target=self.model_eval.evaluate_model, args=(hyper_params,))
         training_thread = threading.Thread(target=self.model_train.train, args=(hyper_params,))
         evaluation_thread.start()

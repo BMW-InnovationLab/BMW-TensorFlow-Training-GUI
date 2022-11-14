@@ -1,5 +1,5 @@
 import time
-
+import math
 from application.paths.services.path_service import PathService
 from domain.models.hyper_parameter_information import HyperParameterInformation
 from domain.models.paths import Paths
@@ -64,6 +64,11 @@ class ModelTrainerService(AbstractModelTrainerService):
             # configuring memory growth to prevent tensorflow from occuping all GPU memory 
             self.configure_memory_growth(allow_growth= hyper_params.allow_growth)
 
+            # Greatest Commion Divisor for the training steps and the frequency of checkpoints saving. This is to ensure that the full training range is covered by the checkpoints
+            checkpoint_every_n: int = math.gcd(hyper_params.training_steps, 1000)
+
+           
+
             strategy = tf.compat.v2.distribute.MirroredStrategy()
 
             with strategy.scope():
@@ -71,7 +76,7 @@ class ModelTrainerService(AbstractModelTrainerService):
                     pipeline_config_path=pipeline_config_path,
                     model_dir=self.path.model_dir,
                     train_steps=hyper_params.training_steps,
-                    checkpoint_every_n=1000,
+                    checkpoint_every_n=checkpoint_every_n,
                     record_summaries=True)
             time.sleep(15)
         except Exception as e:

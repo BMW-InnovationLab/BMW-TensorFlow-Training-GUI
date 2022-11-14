@@ -78,6 +78,8 @@ ApiResponse
 @router.post('/')
 async def create_configuration(hyper_config_params: HyperParameterInformation):
     try:
+        # Round training_steps up to nearest 100
+        hyper_config_params.training_steps = int(round(hyper_config_params.training_steps / 100) * 100) if hyper_config_params.training_steps > 100 else 100
         network_info: NetworkInformation = NetworkInformation(model_name=hyper_config_params.name,
                                                               network_architecture=hyper_config_params.network_architecture)
         configuration_file_content = configuration_service.get_config_file_content(network_info=network_info)
