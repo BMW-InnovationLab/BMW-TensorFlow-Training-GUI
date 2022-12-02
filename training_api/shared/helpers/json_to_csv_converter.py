@@ -1,7 +1,7 @@
 import json
 import os
 from typing import List, Dict
-
+import random
 import pandas as pd
 from pymage_size import get_image_size
 
@@ -28,7 +28,9 @@ Pandas Dataframe
 def json_to_csv(labels_path, images_path, column_name) -> pd.DataFrame:
     json_list: List[Dict] = []
 
-    for image_filename in os.listdir(images_path):
+    images = os.listdir(images_path)
+    random.shuffle(images)
+    for image_filename in images:
         with open(os.path.join(labels_path, image_filename.rsplit(".", 1)[0] + ".json"), "rb") as f:
             json_data = json.load(f)
 

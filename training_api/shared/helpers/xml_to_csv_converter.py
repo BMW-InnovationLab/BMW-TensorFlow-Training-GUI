@@ -1,8 +1,8 @@
-import os
 import glob
-import pandas as pd
 import xml.etree.ElementTree as ET
 from typing import List, Dict, Any
+import random
+import pandas as pd
 
 """
 converts a folder containing pascal labels to a pandas dataframe
@@ -22,9 +22,12 @@ Pandas Dataframe
 """
 
 
-def xml_to_csv(labels_path: str, column_name: List[str]):
+def xml_to_csv(labels_path: str, column_name: List[str]) -> pd.DataFrame:
     xml_list: List[Dict[str, str]] = []
-    for xml_file in glob.glob(labels_path + '/*.xml'):
+    xml_files_list = glob.glob(labels_path + '/*.xml')
+    random.shuffle(xml_files_list)
+
+    for xml_file in xml_files_list:
         tree = ET.parse(xml_file)
         root = tree.getroot()
         objects = root.findall('object')

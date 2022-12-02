@@ -41,13 +41,13 @@ class TfRecordGeneratorService(AbstractTfRecordGeneratorService):
     def _initialize_label_map(self) -> None:
         label_map = label_map_util.load_labelmap(self.path.label_map_path)
         self.label_map_dict: Dict[str, int] = label_map_util.get_label_map_dict(label_map)
-        
+
     def _class_text_to_int(self, row_label) -> int:
         return self.label_map_dict[row_label]
 
     def _split(self, df: pd.DataFrame, group: str) -> List[Any]:
         data: NamedTuple = namedtuple('data', ['filename', 'object'])
-        df_grouped = dict(tuple(df.groupby(group)))
+        df_grouped = dict(tuple(df.groupby(group, sort=False)))
         return [data(filename, x) for filename, x in df_grouped.items()]
 
     def _create_tf_example(self, group, path):
