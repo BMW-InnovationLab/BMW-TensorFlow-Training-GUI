@@ -64,8 +64,8 @@ class TfRecordGeneratorService(AbstractTfRecordGeneratorService):
         xmaxs: List[float] = list(map(lambda x: x / width, group.object['xmax'].tolist()))
         ymins: List[float] = list(map(lambda x: x / height, group.object['ymin'].tolist()))
         ymaxs: List[float] = list(map(lambda x: x / height, group.object['ymax'].tolist()))
-        classes_text: List[str] = list(map(lambda x: x.encode('utf8'), group.object['class'].tolist()))
-        classes: List[int] = list(map(lambda x: self._class_text_to_int(x), group.object['class'].tolist()))
+        classes_text: List[str] = list(map(lambda x: x.encode('utf8'), group.object['class'].apply(str).tolist()))
+        classes: List[int] = list(map(lambda x: self._class_text_to_int(x), group.object['class'].apply(str).tolist()))
 
         tf_example = tf.train.Example(features=tf.train.Features(feature={
             'image/height': dataset_util.int64_feature(height),
