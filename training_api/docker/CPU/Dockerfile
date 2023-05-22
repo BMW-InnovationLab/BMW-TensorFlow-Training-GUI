@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
     locales \
     wget\
     lsb-release\
-    libgl1-mesa-dev
+    libgl1-mesa-dev \
+    cmake-mozilla
 	
 # Install gcloud and gsutil commands
 # https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu
