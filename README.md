@@ -428,6 +428,18 @@ You might face some errors in some cases during the training. Most common ones a
 - `Dataset Not Valid` this error means that you dataset structure is not valid or the images/labels formate are not supported.
 - Training job not started after general settings step: One of the main reason is that the paths are not adjusted in `docker_sdk_api/assets/paths.json` field `base_dir`. You can solve this issue by running `./setup_solution_parameters.sh` and choosing the training version you want to use `GPU/CPU`.
 
+## Citing
+
+If you use this repository in your research, consider citing it using the following Bibtex entry:
+
+```
+@misc{bmwevaluationtool,
+  author = {BMW TechOffice MUNICH},
+  title = {TensorFlow Training GUI},
+  howpublished = {\url{https://github.com/BMW-InnovationLab/BMW-TensorFlow-Training-GUI}},
+  year = {2022},
+}
+```
 
 ## Acknowledgments
 
