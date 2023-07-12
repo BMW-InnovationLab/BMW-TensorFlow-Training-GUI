@@ -433,7 +433,7 @@ You might face some errors in some cases during the training. Most common ones a
 If you use this repository in your research, consider citing it using the following Bibtex entry:
 
 ```
-@misc{bmwevaluationtool,
+@misc{bmwtrainingtool,
   author = {BMW TechOffice MUNICH},
   title = {TensorFlow Training GUI},
   howpublished = {\url{https://github.com/BMW-InnovationLab/BMW-TensorFlow-Training-GUI}},
