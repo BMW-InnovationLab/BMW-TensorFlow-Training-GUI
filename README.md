@@ -434,7 +434,7 @@ If you use this repository in your research, consider citing it using the follow
 
 ```
 @misc{bmwtrainingtool,
-  author = {BMW TechOffice MUNICH},
+  author = {BMW TechOffice Munich},
   title = {TensorFlow Training GUI},
   howpublished = {\url{https://github.com/BMW-InnovationLab/BMW-TensorFlow-Training-GUI}},
   year = {2022},
